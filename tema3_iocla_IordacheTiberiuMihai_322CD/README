@@ -1,0 +1,83 @@
+Iordache Tiberiu-Mihai 322CD    
+
+iocla_atoi:
+    
+    Incep cu o variabila "suma" care initial va fi 0. Acesteia ii va fi adaugat
+progresiv cate un intreg si va fi inmultita cu 10 inainte de fiecare adaugare.
+    Parcurg sirul caracter cu caracter, daca char[i] este situat in intervalul
+[0x30-0x39], ii scad 0x30 pentru a il converti din reprezentarea sa in ASCII la 
+intreg. Dupa care, il adaug la suma mentionata anterior.
+    Pentru cazul in care sirul incepe cu caracterul "-", la final voi inmulti
+intregul construit cu -1.
+
+
+create_tree:
+
+    Pentru acest task am incercat o aboradare printr-o metoda recursiva bazata
+pe parcurgerea in preordine a unui arbore.
+
+Pseudocod:
+
+void create_tree(char* token) {
+    aloca spatiu pentru root
+
+    imparte token in siruri diferite cu ajutorul lui strtok => token_key
+
+    recursiveCreateTree(root, token_key)
+}
+
+void recursiveCreateTree(root, token_key) {
+    daca token_key este null
+        return
+
+    daca token_key este operator {
+        root->key == token_key
+
+        calculeaza urmatorul token_key cu ajutorul lui strtok
+
+        daca token_key_new este null
+            return
+
+        aloca spatiu pentru root->left
+        recursiveCreateTree(root->left, token_key_new)
+
+        aloca spatiu pentru root->right
+        recursiveCreateTree(root->right, token_key_after_recursive_call)
+    }
+    altfel {
+        root->key == token_key
+
+        calculeaza urmatorul token_key cu ajutorul lui strtok
+
+        return
+    }      
+}
+
+    Pentru a pune o cheie in root->key am construit o copie cu ajutorul lui
+strdup astfel incat cand se va face free sa nu se piarda informatia din nod 
+odata cu eliberarea informatiei din nodul radacina.
+    Dupa fiecare apel recursiv, se va alege alt token, astfel, in cazul in care
+cheia curenta este un operator, cand va trebui sa fac apelul recursiv pe ramura
+dreapta a nodului, voi folosi token-ul in ultima sa forma, dupa apelul recursiv
+de la ramura stanga. 
+    Datoria faptului ca strdup si strtok imi modifica registrul ecx, acesta 
+este salvat la inceput.
+    A fost nevoie sa pun si un guard in cazul in care adaugam un operator, 
+deoarece numerele negative incep cu caracterul "-", astfel, ele ar fi fost 
+considerate operator si ar conduce la mai multe erori in continuare.
+    Inainte de fiecare apel catre malloc, strdup, strtok, salvez valorea lui 
+eax pe stiva, acest registru fiind cel in care se va pune rezultatul intors de
+acele functii.
+
+
+Feedback:
+    Aceasta tema mi s-a parut mai dificila decat cele anterioare,
+mai ales datorita partii de recursivitate.
+    A fost nevoie de multa atentie atunci cand lucram cu stiva pentru a nu apela 
+gresit functia recursiva. Poate ca exista si o solutie iterativa mai simpla,
+insa eu nu am gasit una, aceasta fiind dupa mine cea mai intuitiva. M-a fortat
+de asemenea sa ma tot plimb cu gdb din adresa de memorie in adresa de memorie
+si astfel am inteles mult mai bine toate aceste aspecte legate de apeluri de 
+functii, dar si despre recursivitate in general. 
+    Am vazut folderul cu eastereggs, mi-a placut cel cu yoda, insa tot am fost
+surprins de muzica care incepe atunci cand acumulezi 100/100. :)))))

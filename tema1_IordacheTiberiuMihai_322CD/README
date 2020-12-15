@@ -1,0 +1,68 @@
+IORDACHE TIBERIU-MIHAI 322CD
+
+
+Implementare:
+
+	Parcurg string-ul 'format' caracter cu caracter si in functie de caracterul
+de la pozitia curenta avem urmatoarele optiunui:
+	1) caracterul este '%'
+		In acest caz voi itera in continuare pana cand voi gasi un caracter
+diferit de '%'. Daca pe parcursul acestei iteratii se gasesc 2 '%', voi 
+printa unul. Dupa ce am gasit un caracter diferit, verific intai daca 
+am avut un '%' inainte de el, in acest caz voi verifica ce caracter am si voi 
+intra pe case-ul sau(int, unsigned int, hexa, char, string). In caz contrar,
+voi printa pur si simplu caracterul.
+	
+	2) caracterul este diferit de '%'
+		Pur si simplu voi printa caracterul.
+
+
+	Case-uri:
+
+1) %d
+	Preiau numarul ca tip int din lista de argumente cu ajutorul lui va_arg.
+Pentru conversia sa la string am folosit o functie itoa. Implementarea acesteia
+a fost preluata de pe interent, insa am modificat unele bucatii pentru a avea 
+un coding style cat mai consistent. (Din cate am citit pe forum, avem voie sa 
+folosim aceste bucati de cod atata timp cat precizam sursele, asa ca le-am lasat
+in josul README-ului). Dupa ce am convertit numarul in string, il afisez 
+folosind functia data write_stdout. De asemenea incrementez valoarea 
+variabilei result cu lungimea sirului de caractere pentru a returna valoarea 
+corecta la final.
+
+2) %u
+	Preiua numarul ca tip unsigned int si il convertesc la string folosind 
+functia utoa(si aceasta functie este preluata de pe internet si modificata
+pentru consistenta coding style-ului, sursa este deasemenea in josul 
+README-ului). Analog, printez string-ul si incrementez valoarea variabilei
+result.
+
+3) %x
+	Analog preiau numarul ca tip unsigned int, insa de data asta il convertesc
+folosind functia utoa, doar ca baza este de data aceasta 16.
+
+4) %c
+	Preiau caracterul din lista de argumente ca tip int. Creez un string pe care
+il voi printa, el continand un singur element, argumentul preluat anterior 
+castat la char.
+
+5) %s
+	Preiau argumentul ca string si il afisez direct.
+
+
+FEEDBACK:
+	Tema mi s-a parut destul de interesanta, am invatat cateva chestii noi 
+cand vine vorba de manipularea sirurilor de caractere si conversia din 
+int in string. Singura dificultate pe care am intampinat-o a fost 
+intelegerea output-ului unor teste (de ce era corect sa printeze intr-un fel
+anume).
+
+
+Surse itoa, utoa:
+
+itoa https://www.techiedelight.com/implement-itoa-function-in-c/
+Am folosit functiile swap, reverse si itoa, cu mici modificari
+
+utoa https://searchcode.com/codesearch/view/20251583/
+Am folosit functia utoa cu mici modificari
+

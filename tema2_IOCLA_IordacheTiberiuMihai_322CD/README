@@ -1,0 +1,63 @@
+Iordache Tiberiu-Mihai 322CD
+
+OTP:
+    Am copiat fiecare caracter din plaintext in registrul al,
+dupa care am efectuat xor cu caracterul corespunzator din key.
+In final, copiam rezultatul operatiei xor in registrul edx, adica
+in ciphertext.
+
+Caesar Cipher:
+    La acest task am observat ca daca valoarea cheii este mai mare de 25, 
+codificarea pentru o litera va ramane aceeasi. Asa ca la inceputul programului
+verific acest lucru si actualizez cheia la noua valoare. Dupa care iterez prin
+ficare caracter din sir. Daca caracterul curent este o litera(verific dupa
+valoarea sa in ASCII), ii adaug cheia si verific daca am depasit valoarea 
+ultimei litere din alfabet. Daca da, ma deplasez inapoi cu 26 de poziti pentru
+ca miscarea circulara sa fie corecta.
+
+Vigenere Cipher:
+    Analog cu task-ul anterior, iterez prin sirul plaintext pana gasesc o
+litera. Odata gasita, iau valoarea corespunzatoare din cheie (iterarea va 
+incepe de la 0, iar cand se va ajunge sa fie egala cu lungimea cheii, voi
+reseta index-ul la 0), ii scad 65 pentru a deplasa char-ul din plain cu atatea
+pozitii pe cat este litera din key in alfabet. Odata deplasata, adun valoarea 
+din plaintext[i] si o salvez in chipper.
+    Deoarece ma foloseam de majoritatea registrilor in timpul programului, 
+pentru compararea unui index cu lungimea unui string, am folosit stiva, 
+dand push la inceput ambelor lungimi ale celor 2 string-uri, dupa aceea facand
+comparari cu elementele de la adresele din stiva.
+
+StrStr:
+    Pornesc iteratia prin haystack folosindu-ma de ecx(il setez la valoarea 0
+la inceput). Odata ce un caracter din haystack este egal cu primul caracter
+din needle, salvez in edi index-ul curent al lui haystack si incep sa iterez
+prin ambele string-uri simultan pana gasesc un caracter diferit. Daca la 
+gasirea un caracter diferit, index-ul lui needle este egal cu lungimea sa, 
+atunci pot returna index-ul salvat anterior in edi. Altfel ma intorc la 
+iterarea prin haystack pana gasesc un caracter comun cu primul din needle.
+
+Binary to Hexadecimal:
+    Initial voi impartii lungimea sirului de biti la 4 (lungimea unui nibble), 
+pentru a vedea cati biti raman in plus(acestia vor avea valori de 0 in fata).
+Salvez acest rest pe stiva pentru a-l accesa cat mai usor pe parcursul 
+programului. Dupa care, adaug la finalul string-ul rezultat enter-ul si null 
+terminatorul in functie de valoarea din rest(daca am rest, voi adauga cu o
+pozitie in plus, pentru a lasa loc specific pentru acel nibble). 
+    Incep iterarea de la sfarsitul string-ului catre inceput si verific daca 
+caracterul curent este 1. Daca da, il voi insuma cu valoarea precedenta a lui
+al(initial este 0 si este resetata la 0 de fiecare data cand formez un nibble).
+Pentru a face aceasta suma, prima data imi salvez numarul curent de biti si 
+index-ul curent din sir, deoarce ma voi folosii de registrele ebx si ecx in 
+formarea bit-ului care urmeaza sa fie insumat. Pe acesta il shiftez atatea 
+pozitii cati biti am in nibble-ul curent, iar pentru a il aduna cu al, intai 
+neg al, fac xor cu bit-ul shiftat, dupa care daca neg din nou rezultatul, voi
+obtine suma celor 2. Odata ce counter-ul de biti a ajuns la 4, voi transfera
+acest nibble catre string ul rezultat. Pentru a calcula pozitia la care trebuie
+adaugat acest nibble, impart pozita curenta din string la 4. Doar in cazul in 
+care nibble-ul curent este format din restul de biti calculati initial si
+salvati in ah, voi adauga acest nibble la prima pozitie a string-ului. Inainte 
+sa adaug un nibble, fac conversia catre ASCII.
+    Odata adaugat, resetez registrii eax si ebx cu care lucrez si continui 
+iterarea.
+
+
